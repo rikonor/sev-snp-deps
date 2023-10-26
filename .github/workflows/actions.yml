@@ -1,16 +1,12 @@
-name: qemu
-
-on:
-  push:
-    branches:
-      - qemu
+name: ovmf
+on: [push]
 
 env:
-  builder: builder-3
-  ref: ref-3
+  builder: builder-2
+  ref: ref-2
 
 jobs:
-  qemu:
+  ovmf:
     runs-on: ubuntu-latest
     steps:
       - name: Mark builder
@@ -23,7 +19,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
-          tag_name: qemu-${{ env.ref }}
+          tag_name: ovmf-${{ env.ref }}
           files: |
             ${{ github.workspace }}/builder.txt
             ${{ github.workspace }}/ref.txt
