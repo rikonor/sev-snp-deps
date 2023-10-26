@@ -44,6 +44,8 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
           tag_name: ${{ env.upstream }}-${{ env.ref }}
+          files: |
+            ${{ github.workspace }}/linux-image-*.deb
           body: |
             | Name | Value |
             | ------------- | ------------- |
