@@ -13,4 +13,12 @@ jobs:
   qemu:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "kernel ${{ env.builder }} - ${{ env.ref }}"
+      - run: echo "qemu ${{ env.builder }} - ${{ env.ref }}" > qemu.txt
+
+      - name: Publish qemu
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
+          files: |
+            ${{ github.workspace }}/qemu.txt
