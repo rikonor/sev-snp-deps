@@ -1,0 +1,16 @@
+name: qemu
+
+on:
+  push:
+    branches:
+      - qemu
+
+env:
+  builder: builder-3
+  ref: ref-3
+
+jobs:
+  qemu:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "kernel ${{ env.builder }} - ${{ env.ref }}"

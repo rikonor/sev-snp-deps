@@ -1,0 +1,16 @@
+name: linux-kernel
+
+on:
+  push:
+    branches:
+      - linux-kernel
+
+env:
+  builder: builder-1
+  ref: ref-1
+
+jobs:
+  linux-kernel:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "kernel ${{ env.builder }} - ${{ env.ref }}"

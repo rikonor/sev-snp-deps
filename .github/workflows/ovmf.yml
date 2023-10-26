@@ -1,0 +1,16 @@
+name: ovmf
+
+on:
+  push:
+    branches:
+      - ovmf
+
+env:
+  builder: builder-2
+  ref: ref-2
+
+jobs:
+  ovmf:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "kernel ${{ env.builder }} - ${{ env.ref }}"
