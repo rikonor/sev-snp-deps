@@ -23,8 +23,7 @@ jobs:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
           tag_name: ${{ env.upstream }}-${{ env.ref }}
           body: |
-            | Name          | Value                 |
-            | ------------- | -------------         |
-            | Builder       | `${{ env.builder }}`  |
-            | Upstream      | `${{ env.upstream }}` |
-            | Ref           | `${{ env.ref }}`      |
+            | Name | Value |
+            | ------------- | ------------- |
+            | Builder | `${{ env.builder }}` |
+            | Upstream | [`${{ env.upstream }}:${{ env.ref }}`](https://github.com/${{ env.upstream }}/tree/${{ env.ref }}) |
