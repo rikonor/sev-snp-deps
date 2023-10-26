@@ -22,5 +22,7 @@ jobs:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
           tag_name: linux-kernel-${{ env.ref }}
           body: |
-            Builder: ${{ env.builder }}
-            Upstream Ref: ${{ env.ref }}
+            | Name | Value |
+            | ------------- | ------------- |
+            | Builder  | `${{ env.builder }}` |
+            | Upstream | `${{ env.ref }}`     |
