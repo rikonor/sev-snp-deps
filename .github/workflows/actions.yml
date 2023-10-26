@@ -35,7 +35,7 @@ jobs:
             -v ${{ github.workspace }}/local:/local \
             -v ${{ github.workspace }}/upstream:/upstream -w /upstream \
             -e CONFIG_PATH="/local/.config" \
-            -e LOCALVERSION="-snp-${${{ env.ref }}::7}" \
+            -e LOCALVERSION="-snp-$(echo ${{ env.ref }} | cut -c -7)" \
             ghcr.io/${{ env.builder }} \
               bash /local/build.sh
 
