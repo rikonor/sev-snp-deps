@@ -2,7 +2,7 @@ name: linux-kernel
 on: [push]
 
 env:
-  builder: ghcr.io/rikonor/linux-kernel-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
+  builder: rikonor/linux-kernel-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
   upstream: AMDESE/linux
   ref: 93e2466caee94edb1616ab75f48983ecbc86a03b
 
@@ -10,12 +10,34 @@ jobs:
   linux-kernel:
     runs-on: ubuntu-latest
     steps:
+      - name: Clone self
+        uses: actions/checkout@v4
+        with:
+          path: ${{ github.workspace }}/local
+
+      - name: Clone upstream
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.upstream }}
+          ref: ${{ env.ref }}
+          path: ${{ github.workspace }}/upstream
+
       - name: Login to container registry
         run: |
           docker login \
             -u ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
             -p ${{ secrets.CONTAINER_REGISTRY_PASSWORD }} \
             ghcr.io
+
+      - name: Build upstream
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/local:/local \
+            -v ${{ github.workspace }}/upstream:/upstream -w /upstream \
+            -e CONFIG_PATH="/local/.config" \
+            -e LOCALVERSION="-snp-${${{ env.ref }}::7}" \
+            ghcr.io/${{ env.builder }} \
+              bash /local/build.sh
 
       - name: Publish
         uses: softprops/action-gh-release@v1
