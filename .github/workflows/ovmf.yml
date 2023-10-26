@@ -23,7 +23,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
-          tag_name: ${{ env.ref }}
+          tag_name: ovmf-${{ env.ref }}
           files: |
             ${{ github.workspace }}/builder.txt
             ${{ github.workspace }}/ref.txt
