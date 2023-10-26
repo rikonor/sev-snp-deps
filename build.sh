@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-echo "Building Linux Kernel"
+echo "Building Linux Kernel ${LOCALVERSION}"
