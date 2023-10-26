@@ -2,9 +2,9 @@ name: linux-kernel
 on: [push]
 
 env:
-  builder: rikonor/linux-kernel-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
+  builder: rikonor/linux-kernel-builder:09fd4986210e51efa3805c267ddda00e7c17d4c6
   upstream: AMDESE/linux
-  ref: 09fd4986210e51efa3805c267ddda00e7c17d4c6
+  ref: 93e2466caee94edb1616ab75f48983ecbc86a03b
 
 jobs:
   linux-kernel:
