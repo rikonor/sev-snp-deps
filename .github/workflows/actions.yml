@@ -1,9 +1,5 @@
 name: qemu
-
-on:
-  push:
-    branches:
-      - qemu
+on: [push]
 
 env:
   builder: builder-3
