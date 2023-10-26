@@ -1,8 +1,7 @@
-# SEV-SNP Dependencies
+# Builders
 
-## Branches
+## Dockerfiles
 
-- [Builders](https://github.com/rikonor/sev-snp-deps/tree/builders)
-- [Linux Kernel](https://github.com/rikonor/sev-snp-deps/tree/linux-kernel)
-- [OVMF](https://github.com/rikonor/sev-snp-deps/tree/ovmf)
-- [QEMU](https://github.com/rikonor/sev-snp-deps/tree/qemu)
+- [Linux Kernel](https://github.com/rikonor/sev-snp-deps/blob/builders/Dockerfile.linux-kernel)
+- [OVMF](https://github.com/rikonor/sev-snp-deps/blob/builders/Dockerfile.ovmf)
+- [QEMU](https://github.com/rikonor/sev-snp-deps/blob/builders/Dockerfile.qemu)
