@@ -2,24 +2,48 @@ name: ovmf
 on: [push]
 
 env:
-  builder: builder-2
-  ref: ref-2
+  builder: rikonor/ovmf-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
+  upstream: AMDESE/ovmf
+  ref: 80318fcdf1bccf5d503197825d62a157efd27c4b
 
 jobs:
   ovmf:
     runs-on: ubuntu-latest
     steps:
-      - name: Mark builder
-        run: echo "${{ env.builder }}" > builder.txt
-      
-      - name: Mark ref
-        run: echo "${{ env.ref }}" > ref.txt
-      
+      - name: Clone self
+        uses: actions/checkout@v4
+        with:
+          path: ${{ github.workspace }}/local
+
+      - name: Clone upstream
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.upstream }}
+          ref: ${{ env.ref }}
+          path: ${{ github.workspace }}/upstream
+
+      - name: Login to container registry
+        run: |
+          docker login \
+            -u ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
+            -p ${{ secrets.CONTAINER_REGISTRY_PASSWORD }} \
+            ghcr.io
+
+      - name: Build upstream
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/local:/local \
+            -v ${{ github.workspace }}/upstream:/upstream -w /upstream \
+            ghcr.io/${{ env.builder }} \
+              bash /local/build.sh
+
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
-          tag_name: ovmf-${{ env.ref }}
-          files: |
-            ${{ github.workspace }}/builder.txt
-            ${{ github.workspace }}/ref.txt
+          tag_name: ${{ env.upstream }}-${{ env.ref }}
+          body: |
+            | Name | Value |
+            | ------------- | ------------- |
+            | Builder | `${{ env.builder }}` |
+            | Upstream | [`${{ env.upstream }}:${{ env.ref }}`](https://github.com/${{ env.upstream }}/tree/${{ env.ref }}) |
