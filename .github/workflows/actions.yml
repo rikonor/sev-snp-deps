@@ -1,0 +1,70 @@
+name: builders
+on: [push]
+
+jobs:
+  linux-kernel-builder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build image
+        run: |
+          docker build \
+            -f Dockerfile.linux-kernel \
+            -t ghcr.io/rikonor/linux-kernel-builder:${{ github.sha }} \
+            .
+      
+      - name: Login to container registry
+        run: |
+          docker login \
+            -u ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
+            -p ${{ secrets.CONTAINER_REGISTRY_PASSWORD }} \
+            ghcr.io
+      
+      - name: Publish docker image
+        run: docker push ghcr.io/rikonor/linux-kernel-builder:${{ github.sha }}
+
+  ovmf-builder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build image
+        run: |
+          docker build \
+            -f Dockerfile.ovmf \
+            -t ghcr.io/rikonor/ovmf-builder:${{ github.sha }} \
+            .
+      
+      - name: Login to container registry
+        run: |
+          docker login \
+            -u ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
+            -p ${{ secrets.CONTAINER_REGISTRY_PASSWORD }} \
+            ghcr.io
+      
+      - name: Publish docker image
+        run: docker push ghcr.io/rikonor/ovmf-builder:${{ github.sha }}
+
+  qemu-builder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build image
+        run: |
+          docker build \
+            -f Dockerfile.qemu \
+            -t ghcr.io/rikonor/qemu-builder:${{ github.sha }} \
+            .
+      
+      - name: Login to container registry
+        run: |
+          docker login \
+            -u ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
+            -p ${{ secrets.CONTAINER_REGISTRY_PASSWORD }} \
+            ghcr.io
+      
+      - name: Publish docker image
+        run: docker push ghcr.io/rikonor/qemu-builder:${{ github.sha }}
+
