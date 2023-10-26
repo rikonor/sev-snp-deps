@@ -1,1 +1,17 @@
 FROM debian:12
+
+RUN \
+    apt update && apt install -y \
+        bc \
+        bison \
+        cpio \
+        debhelper \
+        dpkg-dev \
+        flex \
+        gcc \
+        kmod \
+        libelf-dev \
+        libssl-dev \
+        lsb-release \
+        make \
+        rsync
