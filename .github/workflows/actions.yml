@@ -4,7 +4,7 @@ on: [push]
 env:
   builder: rikonor/linux-kernel-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
   upstream: AMDESE/linux
-  ref: 93e2466caee94edb1616ab75f48983ecbc86a03b
+  ref: 09fd4986210e51efa3805c267ddda00e7c17d4c6
 
 jobs:
   linux-kernel:
@@ -47,5 +47,5 @@ jobs:
           body: |
             | Name | Value |
             | ------------- | ------------- |
-            | Builder | `${{ env.builder }}` |
+            | Builder | `ghcro.io/${{ env.builder }}` |
             | Upstream | [`${{ env.upstream }}:${{ env.ref }}`](https://github.com/${{ env.upstream }}/tree/${{ env.ref }}) |
