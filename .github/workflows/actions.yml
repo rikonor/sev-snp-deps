@@ -3,7 +3,8 @@ on: [push]
 
 env:
   builder: ghcr.io/rikonor/linux-kernel-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
-  ref: ref-1
+  upstream: AMDESE/linux
+  ref: 93e2466caee94edb1616ab75f48983ecbc86a03b
 
 jobs:
   linux-kernel:
@@ -20,9 +21,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
-          tag_name: linux-kernel-${{ env.ref }}
+          tag_name: ${{ env.upstream }}-${{ env.ref }}
           body: |
-            | Name | Value |
-            | ------------- | ------------- |
-            | Builder  | `${{ env.builder }}` |
-            | Upstream | `${{ env.ref }}`     |
+            | Name          | Value                 |
+            | ------------- | -------------         |
+            | Builder       | `${{ env.builder }}`  |
+            | Upstream      | `${{ env.upstream }}` |
+            | Ref           | `${{ env.ref }}`      |
