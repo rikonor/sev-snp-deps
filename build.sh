@@ -28,4 +28,4 @@ ${CONFIG_CMD} --set-str LOCALVERSION "${LOCALVERSION}"
 make O=${BUILD_DIR} -j$(nproc) bindeb-pkg
 
 # Output
-cp "${BUILD_DIR}/../linux-image-*.deb" "${OUT_DIR}"
+cp "../linux-*.deb" "${OUT_DIR}"
