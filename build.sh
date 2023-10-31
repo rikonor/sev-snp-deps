@@ -14,6 +14,8 @@ if [[ -z "${OUT_DIR}" ]]; then
     exit 1
 fi
 
+cd "${SOURCE_DIR}"
+
 # Build
 make -C BaseTools
 source edksetup.sh --reconfig
