@@ -34,7 +34,9 @@ jobs:
           docker run --rm \
             -v ${{ github.workspace }}/local:/local \
             -v ${{ github.workspace }}/upstream:/upstream -w /upstream \
+            -v ${{ github.workspace }}/out:/out \
             -e CONFIG_PATH="/local/.config" \
+            -e OUT_DIR="/out" \
             -e LOCALVERSION="-snp-$(echo ${{ env.ref }} | cut -c -7)" \
             ghcr.io/${{ env.builder }} \
               bash /local/build.sh
@@ -45,7 +47,7 @@ jobs:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
           tag_name: ${{ env.upstream }}-${{ env.ref }}
           files: |
-            ${{ github.workspace }}/linux-image-*.deb
+            ${{ github.workspace }}/out/linux-image-*.deb
           body: |
             | Name | Value |
             | ------------- | ------------- |

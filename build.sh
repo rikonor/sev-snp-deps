@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-OUTPUT_DIR=$(mktemp -d)
-CONFIG_CMD="scripts/config --file ${OUTPUT_DIR}/.config"
+BUILD_DIR=$(mktemp -d)
+CONFIG_CMD="scripts/config --file ${BUILD_DIR}/.config"
 
 CONFIG_PATH="${CONFIG_PATH:-}"
 if [[ -z "${CONFIG_PATH}" ]]; then
@@ -11,12 +11,21 @@ if [[ -z "${CONFIG_PATH}" ]]; then
     exit 1
 fi
 
+OUT_DIR="${OUT_DIR:-}"
+if [[ -z "${OUT_DIR}" ]]; then
+    echo "missing OUT_DIR"
+    exit 1
+fi
+
 # Clean up
-make O=${OUTPUT_DIR} distclean
+make O=${BUILD_DIR} distclean
 
 # Configuration
-cp "${CONFIG_PATH}" "${OUTPUT_DIR}"
+cp "${CONFIG_PATH}" "${BUILD_DIR}"
 ${CONFIG_CMD} --set-str LOCALVERSION "${LOCALVERSION}"
 
 # Build and package
-make O=${OUTPUT_DIR} -j$(nproc) bindeb-pkg
+make O=${BUILD_DIR} -j$(nproc) bindeb-pkg
+
+# Output
+cp "${BUILD_DIR}/../linux-image-*.deb" "${OUT_DIR}"
