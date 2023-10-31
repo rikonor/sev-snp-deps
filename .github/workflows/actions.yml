@@ -47,6 +47,7 @@ jobs:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
           tag_name: ${{ env.upstream }}-${{ env.ref }}
           files: |
+            ${{ github.workspace }}/out/OVMF.fd
             ${{ github.workspace }}/out/OVMF_VARS.fd
             ${{ github.workspace }}/out/OVMF_CODE.fd
           body: |

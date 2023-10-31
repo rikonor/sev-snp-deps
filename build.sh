@@ -24,5 +24,6 @@ build \
     -n $(nproc)
 
 # Output
+cp "${SOURCE_DIR}/Build/OvmfX64/DEBUG_GCC5/FV/OVMF.fd" "${OUT_DIR}"
 cp "${SOURCE_DIR}/Build/OvmfX64/DEBUG_GCC5/FV/OVMF_VARS.fd" "${OUT_DIR}"
 cp "${SOURCE_DIR}/Build/OvmfX64/DEBUG_GCC5/FV/OVMF_CODE.fd" "${OUT_DIR}"
