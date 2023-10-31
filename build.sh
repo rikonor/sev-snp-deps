@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eo pipefail
 
 SOURCE_DIR="${SOURCE_DIR:-}"
 if [[ -z "${SOURCE_DIR}" ]]; then
@@ -13,8 +13,6 @@ if [[ -z "${OUT_DIR}" ]]; then
     echo "missing OUT_DIR"
     exit 1
 fi
-
-cd "${SOURCE_DIR}"
 
 # Build
 make -C BaseTools
