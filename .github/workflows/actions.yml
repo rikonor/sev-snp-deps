@@ -2,7 +2,7 @@ name: qemu
 on: [push]
 
 env:
-  builder: rikonor/qemu-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
+  builder: rikonor/qemu-builder:9d7963cfbc95c16b499160dd603f0b5c1e57bd05
   upstream: AMDESE/qemu
   ref: bbc1bfb6bfb3cde4c22755cedd5b71e651ca35e8
 
