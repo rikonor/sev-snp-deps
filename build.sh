@@ -22,4 +22,5 @@ make install
 # Package
 checkinstall -D -y \
     --pkgname=qemu \
-    --pkgversion=8
+    --pkgversion=8 \
+    --requires "libpixman-1-dev,libgio3.0-cil-dev"
