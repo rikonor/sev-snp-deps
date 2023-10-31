@@ -21,6 +21,7 @@ jobs:
           repository: ${{ env.upstream }}
           ref: ${{ env.ref }}
           path: ${{ github.workspace }}/upstream
+          submodules: true
 
       - name: Login to container registry
         run: |
@@ -33,7 +34,9 @@ jobs:
         run: |
           docker run --rm \
             -v ${{ github.workspace }}/local:/local \
-            -v ${{ github.workspace }}/upstream:/upstream -w /upstream \
+            -v ${{ github.workspace }}/upstream:/upstream \
+            -v ${{ github.workspace }}/build:/build -w /build \
+            -e SOURCE_DIR="/upstream" \
             ghcr.io/${{ env.builder }} \
               bash /local/build.sh
 
@@ -42,6 +45,8 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
           tag_name: ${{ env.upstream }}-${{ env.ref }}
+          files: |
+            ${{ github.workspace }}/build/qemu_*.deb
           body: |
             | Name | Value |
             | ------------- | ------------- |
