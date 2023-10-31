@@ -37,6 +37,7 @@ jobs:
             -v ${{ github.workspace }}/upstream:/upstream -w /upstream \
             -v ${{ github.workspace }}/out:/out \
             -e SOURCE_DIR="/upstream" \
+            -e WORKSPACE="/upstream" \
             -e OUT_DIR="/out" \
             ghcr.io/${{ env.builder }} \
               bash /local/build.sh
