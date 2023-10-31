@@ -2,7 +2,7 @@ name: ovmf
 on: [push]
 
 env:
-  builder: rikonor/ovmf-builder:06601067dded0f4e1fed2527bfb99b0f19f19274
+  builder: rikonor/ovmf-builder:93a37117dda3066d71e6443de9599703bf4afeaa
   upstream: AMDESE/ovmf
   ref: 80318fcdf1bccf5d503197825d62a157efd27c4b
 
@@ -34,6 +34,9 @@ jobs:
           docker run --rm \
             -v ${{ github.workspace }}/local:/local \
             -v ${{ github.workspace }}/upstream:/upstream -w /upstream \
+            -v ${{ github.workspace }}/out:/out \
+            -e SOURCE_DIR="/upstream" \
+            -e OUT_DIR="/out" \
             ghcr.io/${{ env.builder }} \
               bash /local/build.sh
 
@@ -42,6 +45,9 @@ jobs:
         with:
           token: ${{ secrets.RELEASE_ACCESS_TOKEN }}
           tag_name: ${{ env.upstream }}-${{ env.ref }}
+          files: |
+            ${{ github.workspace }}/out/OVMF_VARS.fd
+            ${{ github.workspace }}/out/OVMF_CODE.fd
           body: |
             | Name | Value |
             | ------------- | ------------- |
