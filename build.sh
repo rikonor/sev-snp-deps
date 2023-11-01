@@ -27,7 +27,5 @@ ${CONFIG_CMD} --set-str LOCALVERSION "${LOCALVERSION}"
 # Build and package
 make O=${BUILD_DIR} -j$(nproc) bindeb-pkg
 
-find / -name "linux-*.deb"
-
 # Output
-cp "../linux-*.deb" "${OUT_DIR}"
+find / -name "linux-*.deb" -exec cp {} "${OUT_DIR}" \;
